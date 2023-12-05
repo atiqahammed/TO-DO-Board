@@ -1,9 +1,9 @@
-import { ICategory } from "./iCategory";
+import { ICategory } from './iCategory'
 
 export interface ITask {
-    id?: number;
-    name?: string,
-    description?: string,
-    category?: ICategory,
+    id?: number
+    name?: string
+    description?: string
+    category?: ICategory
     expiryDate?: string
 }

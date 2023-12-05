@@ -4,6 +4,6 @@ function NoPage() {
             <h1 className="text-3xl font-bold">Page Not Available</h1>
         </div>
     )
-  }
-  
-  export default NoPage;
+}
+
+export default NoPage
