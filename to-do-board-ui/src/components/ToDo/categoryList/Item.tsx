@@ -8,7 +8,7 @@ function Item(props: {task: ITask}) {
     const maxDescriptionSize = 50;
 
     return (
-        <div className="border-2 border-zinc-800 rounded-md max-w-md bg-slate-100 p-2 m-1">
+        <div className="border-2 border-zinc-800 rounded-md max-w-md bg-green-100 p-2 m-1">
             <h1 className="text-1xl font-bold">{resizeText(task.name ?? "", maxNameSize)}</h1>
             <p className="text-sm">{resizeText(task.description ?? "", maxDescriptionSize)}</p>
             <p className="text-sm">{task.category?.name}</p>

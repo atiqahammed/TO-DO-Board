@@ -47,10 +47,9 @@ function CategoryList(props: {category: ICategory}) {
     }
 
     return (
-        <div id={`category-${category.id}`} onDrop={drop} onDragOver={allowDrop} className="border-zinc-800 rounded-md min-w-[25%] max-w-md bg-slate-300 p-2 m-1 pb-20">
-            <h1 className="text-2xl font-bold">{resizeText(category.name ?? "", maxNameSize)}</h1>
+        <div id={`category-${category.id}`} onDrop={drop} onDragOver={allowDrop} className="rounded-md min-w-[25%] max-w-md bg-slate-50 p-2 m-1 pb-20">
+            <h1 className="text-2xl font-bold mb-5">{resizeText(category.name ?? "", maxNameSize)}</h1>
             <div id={`item-${category.id+10}`} draggable={true} onDragStart={drag}><Item task={task}></Item></div>
-            
         </div>
     )
   }
