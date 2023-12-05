@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import Nav from "../Nav";
-import Item from "./Item";
 import { ICategory } from "../../interfaces/iCategory";
 import { ITask } from "../../interfaces/iTastItem";
 import CategoryList from "./categoryList/CategoryList";
@@ -10,7 +9,7 @@ function ToDoMaster() {
   const categoryList: ICategory[] = [
     {
         id: 1,
-        name: 'Back lock'
+        name: 'To do'
     },
     {
         id: 2,
@@ -24,7 +23,10 @@ function ToDoMaster() {
         id: 4,
         name: 'Archived'
     },
-
+    {
+        id: 5,
+        name: 'Test'
+    },
   ]
 
   const task: ITask = {
@@ -39,33 +41,19 @@ function ToDoMaster() {
   return (
     <Fragment>
       <Nav/>
-      <h1 className="text-3xl font-bold underline mb-4">
-        Task List
-      </h1>
+      <div className="pl-20 pr-20">
+        <h1 className="text-3xl font-bold underline mb-4">
+                Task List
+        </h1>
 
-      <div className="flex overflow-x-auto bg-grew-200">
-        {/* {categoryList.map((category: ICategory, index) => {
-                retrun (<Fragment></Fragment>)
-        })} */}
-        {/* <Item task={task}></Item>
-        <Item task={task}></Item>
-        <Item task={task}></Item> */}
-        {/* <CategoryList category={category}></CategoryList>
-        <CategoryList category={category}></CategoryList>
-        <CategoryList category={category}></CategoryList>
-        <CategoryList category={category}></CategoryList>
-        <CategoryList category={category}></CategoryList>
-        <CategoryList category={category}></CategoryList>
-        <CategoryList category={category}></CategoryList>
-        <CategoryList category={category}></CategoryList> */}
-        {categoryList.map((item, index) => {
-            return (<Fragment key={`category-${index}`}>
-                <CategoryList category={item}></CategoryList>
-            </Fragment>);
-        })}
+        <div className="flex overflow-x-auto bg-grew-200">
+                {categoryList.map((item, index) => {
+                return (<Fragment key={`category-${index}`}>
+                        <CategoryList category={item}></CategoryList>
+                </Fragment>);
+                })}
+        </div>
       </div>
-      
-
       
     </Fragment>
   )
