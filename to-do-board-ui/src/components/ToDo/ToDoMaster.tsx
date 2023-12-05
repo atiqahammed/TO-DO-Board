@@ -3,6 +3,7 @@ import Nav from "../Nav";
 import { ICategory } from "../../interfaces/iCategory";
 import { ITask } from "../../interfaces/iTastItem";
 import CategoryList from "./categoryList/CategoryList";
+import NewCategoryModal from "../modals/NewCategoryModal";
 
 function ToDoMaster() {
 
@@ -45,6 +46,8 @@ function ToDoMaster() {
         <h1 className="text-3xl font-bold underline mb-4">
                 Task List
         </h1>
+
+        <NewCategoryModal></NewCategoryModal>
 
         <div className="flex overflow-x-auto bg-grew-200">
                 {categoryList.map((item, index) => {
