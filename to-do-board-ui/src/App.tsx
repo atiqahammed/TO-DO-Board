@@ -1,12 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from './components/Login';
+import ToDoMaster from './components/ToDoMaster';
+import NoPage from './components/NoPage';
 
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/">
+        <Route index element={<Login />} />
+        <Route path="to-do" element={<ToDoMaster />} />
+        <Route path="*" element={<NoPage />} />
+      </Route>
+    </Routes>
+  </BrowserRouter>
   )
 }
 
