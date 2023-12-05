@@ -1,5 +1,5 @@
-import { ITask } from "../interfaces/iTastItem";
-import { resizeText } from "../utils/resizeText";
+import { ITask } from "../../interfaces/iTastItem";
+import { resizeText } from "../../utils/resizeText";
 
 function Item(props: {task: ITask}) {
     const {task} = props;

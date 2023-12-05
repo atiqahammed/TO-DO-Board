@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './components/Login';
-import ToDoMaster from './components/ToDoMaster';
+import ToDoMaster from './components/ToDo/ToDoMaster';
 import NoPage from './components/NoPage';
 
 function App() {
