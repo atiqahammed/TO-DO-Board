@@ -1,12 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import DBUser from '../database/entity/db-user.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CommonResponse } from '../response-model/common.model';
 import DBCategory from '../database/entity/db-category.entity';
 import DBTask from 'src/database/entity/db-task.entity';
 import DBTaskHistory from 'src/database/entity/db-task-history.entity';
 import { TaskCommand } from 'src/commands/task.command';
+import { TaskResponse } from 'src/response-model/task.model';
 
 @Injectable()
 export class TaskService {
@@ -173,54 +174,64 @@ export class TaskService {
         }
     }
 
-    // async get(
-    //     email: string,
-    //     correlationId: string
-    // ): Promise<CategoryResponse> {
-    //     this.logger.log(
-    //         `${correlationId} get category initiated. email: ${email}`
-    //     );
+    async get(email: string, correlationId: string): Promise<TaskResponse> {
+        this.logger.log(
+            `${correlationId} get category initiated. email: ${email}`
+        );
 
-    //     let response: CategoryResponse = {};
+        let response: TaskResponse = {};
 
-    //     try {
-    //         this.logger.log(`${correlationId} checking user.`);
-    //         const existingUser = await this.userRepo.findOne({
-    //             where: {
-    //                 email: email
-    //             }
-    //         });
+        try {
+            this.logger.log(`${correlationId} checking user.`);
+            const existingUser = await this.userRepo.findOne({
+                where: {
+                    email: email
+                }
+            });
 
-    //         if (!(existingUser && existingUser.id)) {
-    //             this.logger.warn(`${correlationId} user not found.`);
-    //             response.errorMessage = 'INVALID_REQUEST';
-    //             response.isSuccess = false;
-    //             return response;
-    //         }
+            if (!(existingUser && existingUser.id)) {
+                this.logger.warn(`${correlationId} user not found.`);
+                response.errorMessage = 'INVALID_REQUEST';
+                response.isSuccess = false;
+                return response;
+            }
 
-    //         this.logger.log(`${correlationId} getting category.`);
+            this.logger.log(`${correlationId} getting category.`);
 
-    //         const result = await this.categoryRepo.find({where: {
-    //             userId: existingUser.id
-    //         }});
+            const categoryResult = await this.categoryRepo.find({
+                where: {
+                    userId: existingUser.id
+                }
+            });
 
-    //         response.categoryList = result.map(item => {
-    //             return {
-    //                 name: item.name,
-    //                 id: item.id
-    //             }
-    //         });
-    //         response.isSuccess = true;
-    //         response.message = 'SUCCESS';
+            const categoryIds = categoryResult.map((item) => item.id);
 
-    //         this.logger.log(`${correlationId} returning from get category.`);
-    //         return response;
-    //     } catch (err) {
-    //         const errorMessage = `${correlationId} error found ${err.message}`;
-    //         this.logger.error(`${correlationId} error found ${err.message}`);
-    //         response.errorMessage = errorMessage;
-    //         response.isSuccess = false;
-    //         return response;
-    //     }
-    // }
+            const result = await this.taskRepo.find({
+                where: {
+                    categoryId: In(categoryIds)
+                }
+            });
+
+            response.taskList = result.map((item) => {
+                return {
+                    title: item.title,
+                    id: item.id,
+                    description: item.description,
+                    expiryDate: item.expiryDate,
+                    categoryId: item.categoryId
+                };
+            });
+            response.isSuccess = true;
+            response.message = 'SUCCESS';
+
+            this.logger.log(`${correlationId} returning from get category.`);
+            return response;
+        } catch (err) {
+            const errorMessage = `${correlationId} error found ${err.message}`;
+            this.logger.error(`${correlationId} error found ${err.message}`);
+            response.errorMessage = errorMessage;
+            response.isSuccess = false;
+            return response;
+        }
+    }
 }

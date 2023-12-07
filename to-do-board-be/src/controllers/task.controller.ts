@@ -12,6 +12,7 @@ import { CommonResponse } from '../response-model/common.model';
 import { AuthGuard } from '../configuration/auth.guard';
 import { TaskCommand } from '../commands/task.command';
 import { TaskService } from '../services/task.service';
+import { TaskResponse } from 'src/response-model/task.model';
 
 @Controller('task')
 export class TaskController {
@@ -54,14 +55,14 @@ export class TaskController {
         return res;
     }
 
-    // @UseGuards(AuthGuard)
-    // @Get('/get')
-    // async get(@Request() req): Promise<CategoryResponse> {
-    //     const correlationId: string = randomUUID();
-    //     this.logger.log(`${correlationId} get category started.`);
+    @UseGuards(AuthGuard)
+    @Get('/get')
+    async get(@Request() req): Promise<TaskResponse> {
+        const correlationId: string = randomUUID();
+        this.logger.log(`${correlationId} get task started.`);
 
-    //     const res = await this.categoryService.get(req.user?.email, correlationId);
-    //     this.logger.log(`${correlationId} get category ended.`);
-    //     return res;
-    // }
+        const res = await this.taskService.get(req.user?.email, correlationId);
+        this.logger.log(`${correlationId} get task ended.`);
+        return res;
+    }
 }
