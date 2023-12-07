@@ -1,48 +1,35 @@
-import { Controller, Logger, Post, Body } from '@nestjs/common';
+import { Controller, Logger, Post, Body, UseGuards, Request, Get } from '@nestjs/common';
 import { randomUUID } from 'crypto';
-import { SignupCommand } from '../commands/signup.command';
-import { UserService } from '../services/user.service';
 import { CommonResponse } from '../response-model/common.model';
-import { LoginCommand } from '../commands/login.command';
-import { LoginResponse } from '../response-model/login.model';
-import { RefreshTokenCommand } from '../commands/refresh.token.command';
 import { CategoryCommand } from '../commands/category.command';
-import { CategoryService } from 'src/services/category.service';
+import { CategoryService } from '../services/category.service';
+import { AuthGuard } from '../configuration/auth.guard';
+import { CategoryResponse } from '../response-model/category.model';
 
 @Controller('category')
 export class CategoryController {
     private readonly logger = new Logger(CategoryController.name);
     constructor(private readonly categoryService: CategoryService) {}
 
+    @UseGuards(AuthGuard)
     @Post('/create')
-    async create(@Body() command: CategoryCommand): Promise<CommonResponse> {
+    async create(@Request() req,@Body() command: CategoryCommand): Promise<CommonResponse> {
         const correlationId: string = randomUUID();
         this.logger.log(`${correlationId} create category started.`);
 
-        const res = await this.categoryService.create(command, "string", correlationId);
+        const res = await this.categoryService.create(command, req.user?.email, correlationId);
         this.logger.log(`${correlationId} create category ended.`);
         return res;
     }
 
-    // @Post('/login')
-    // async login(@Body() command: LoginCommand): Promise<LoginResponse> {
-    //     const correlationId: string = randomUUID();
-    //     this.logger.log(`${correlationId} login started.`);
+    @UseGuards(AuthGuard)
+    @Get('/get')
+    async get(@Request() req): Promise<CategoryResponse> {
+        const correlationId: string = randomUUID();
+        this.logger.log(`${correlationId} get category started.`);
 
-    //     const res = await this.userService.login(command, correlationId);
-    //     this.logger.log(`${correlationId} login ended.`);
-    //     return res;
-    // }
-
-    // @Post('/refresh-token')
-    // async refreshToken(
-    //     @Body() command: RefreshTokenCommand
-    // ): Promise<LoginResponse> {
-    //     const correlationId: string = randomUUID();
-    //     this.logger.log(`${correlationId} refreshToken started.`);
-
-    //     const res = await this.userService.refreshToken(command, correlationId);
-    //     this.logger.log(`${correlationId} refreshToken ended.`);
-    //     return res;
-    // }
+        const res = await this.categoryService.get(req.user?.email, correlationId);
+        this.logger.log(`${correlationId} get category ended.`);
+        return res;
+    }
 }

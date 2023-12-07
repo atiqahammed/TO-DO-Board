@@ -1,4 +1,4 @@
-import { Controller, Logger, Post, Body } from '@nestjs/common';
+import { Controller, Logger, Post, Body, UseGuards, Get, Request } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { SignupCommand } from '../commands/signup.command';
 import { UserService } from '../services/user.service';
@@ -6,6 +6,7 @@ import { CommonResponse } from '../response-model/common.model';
 import { LoginCommand } from '../commands/login.command';
 import { LoginResponse } from '../response-model/login.model';
 import { RefreshTokenCommand } from '../commands/refresh.token.command';
+import { AuthGuard } from 'src/configuration/auth.guard';
 
 @Controller('user')
 export class UserController {
@@ -30,6 +31,12 @@ export class UserController {
         const res = await this.userService.login(command, correlationId);
         this.logger.log(`${correlationId} login ended.`);
         return res;
+    }
+
+    @UseGuards(AuthGuard)
+    @Get('profile')
+    getProfile(@Request() req) {
+        return req.user;
     }
 
     @Post('/refresh-token')
