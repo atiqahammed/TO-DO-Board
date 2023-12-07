@@ -1,6 +1,6 @@
-import { SignupResponse } from './signup.model';
+import { CommonResponse } from './common.model';
 
-export class LoginResponse extends SignupResponse {
+export class LoginResponse extends CommonResponse {
     accessToken?: string;
     refreshToken?: string;
     expiresIn?: number;

@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { SignupCommand } from '../commands/signup.command';
 import DBUser from '../database/entity/db-user.entity';
 import { Repository } from 'typeorm';
-import { SignupResponse } from '../response-model/signup.model';
+import { CommonResponse } from '../response-model/common.model';
 import * as bcrypt from 'bcrypt';
 import { LoginCommand } from '../commands/login.command';
 import { LoginResponse } from '../response-model/login.model';
@@ -35,12 +35,12 @@ export class UserService {
     async signup(
         command: SignupCommand,
         correlationId: string
-    ): Promise<SignupResponse> {
+    ): Promise<CommonResponse> {
         this.logger.log(
             `${correlationId} signup initiated. email: ${command.email}`
         );
 
-        let response: SignupResponse = {};
+        let response: CommonResponse = {};
 
         try {
             this.logger.log(`${correlationId} checking duplicate user.`);

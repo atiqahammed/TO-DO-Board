@@ -2,7 +2,7 @@ import { Controller, Logger, Post, Body } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { SignupCommand } from '../commands/signup.command';
 import { UserService } from '../services/user.service';
-import { SignupResponse } from '../response-model/signup.model';
+import { CommonResponse } from '../response-model/common.model';
 import { LoginCommand } from '../commands/login.command';
 import { LoginResponse } from '../response-model/login.model';
 import { RefreshTokenCommand } from '../commands/refresh.token.command';
@@ -13,7 +13,7 @@ export class UserController {
     constructor(private readonly userService: UserService) {}
 
     @Post('/signup')
-    async signup(@Body() command: SignupCommand): Promise<SignupResponse> {
+    async signup(@Body() command: SignupCommand): Promise<CommonResponse> {
         const correlationId: string = randomUUID();
         this.logger.log(`${correlationId} signup started.`);
 

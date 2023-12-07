@@ -4,6 +4,7 @@ import {
     TypeOrmModuleOptions
 } from '@nestjs/typeorm';
 import DBUser from '../database/entity/db-user.entity';
+import DBCategory from '../database/entity/db-category.entity';
 
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
     imports: [ConfigModule],
@@ -21,7 +22,7 @@ export async function getOrmConfig(): Promise<TypeOrmModuleOptions> {
         username: process.env.DATABASE_USER,
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_NAME,
-        entities: [DBUser],
+        entities: [DBUser, DBCategory],
         synchronize: process.env.DATABASE_SYNC ? true : false,
         logging: true,
         migrationsRun: true,

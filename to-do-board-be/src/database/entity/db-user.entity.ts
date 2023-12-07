@@ -14,12 +14,6 @@ class DBUser extends DBBaseEntity {
     @Column({ name: 'password', type: String, default: null })
     public password: string;
 
-    // @Column({ name: 'refresh_token', type: String, default: null })
-    // public refreshToken: string;
-
-    // @Column({ name: 'expires_at', type: 'timestamptz', default: null })
-    // public expiresAt: string;
-
     constructor() {
         super();
     }
