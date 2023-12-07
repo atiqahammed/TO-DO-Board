@@ -5,7 +5,8 @@ import {
     Body,
     UseGuards,
     Request,
-    Get
+    Get,
+    Param
 } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { CommonResponse } from '../response-model/common.model';
@@ -63,6 +64,22 @@ export class TaskController {
 
         const res = await this.taskService.get(req.user?.email, correlationId);
         this.logger.log(`${correlationId} get task ended.`);
+        return res;
+    }
+
+    @UseGuards(AuthGuard)
+    @Get('/get/history/:id')
+    async getHistory(@Request() req, @Param('id') id): Promise<TaskResponse> {
+        const correlationId: string = randomUUID();
+        this.logger.log(`${correlationId} get category started.`);
+        this.logger.log(`${correlationId} id ${id}`);
+
+        const res = await this.taskService.getHistory(
+            id,
+            req.user?.email,
+            correlationId
+        );
+        this.logger.log(`${correlationId} get category ended.`);
         return res;
     }
 }

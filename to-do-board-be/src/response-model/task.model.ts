@@ -1,11 +1,13 @@
 import { CommonResponse } from './common.model';
 
 export class TaskItem {
-    title: string;
+    title?: string;
     id: string;
-    expiryDate: string;
+    expiryDate?: string;
     categoryId: string;
-    description: string;
+    description?: string;
+    createdAt?: string;
+    categoryName?: string;
 }
 
 export class TaskResponse extends CommonResponse {

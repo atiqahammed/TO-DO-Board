@@ -175,9 +175,7 @@ export class TaskService {
     }
 
     async get(email: string, correlationId: string): Promise<TaskResponse> {
-        this.logger.log(
-            `${correlationId} get category initiated. email: ${email}`
-        );
+        this.logger.log(`${correlationId} get task initiated. email: ${email}`);
 
         let response: TaskResponse = {};
 
@@ -219,6 +217,68 @@ export class TaskService {
                     description: item.description,
                     expiryDate: item.expiryDate,
                     categoryId: item.categoryId
+                };
+            });
+            response.isSuccess = true;
+            response.message = 'SUCCESS';
+
+            this.logger.log(`${correlationId} returning from get category.`);
+            return response;
+        } catch (err) {
+            const errorMessage = `${correlationId} error found ${err.message}`;
+            this.logger.error(`${correlationId} error found ${err.message}`);
+            response.errorMessage = errorMessage;
+            response.isSuccess = false;
+            return response;
+        }
+    }
+
+    async getHistory(
+        id: string,
+        email: string,
+        correlationId: string
+    ): Promise<TaskResponse> {
+        this.logger.log(`${correlationId} get task history. id: ${id}`);
+
+        let response: TaskResponse = {};
+
+        try {
+            this.logger.log(`${correlationId} checking user.`);
+            const existingUser = await this.userRepo.findOne({
+                where: {
+                    email: email
+                }
+            });
+
+            if (!(existingUser && existingUser.id)) {
+                this.logger.warn(`${correlationId} user not found.`);
+                response.errorMessage = 'INVALID_REQUEST';
+                response.isSuccess = false;
+                return response;
+            }
+
+            this.logger.log(`${correlationId} getting category.`);
+
+            const categoryResult = await this.categoryRepo.find({
+                where: {
+                    userId: existingUser.id
+                }
+            });
+
+            const result = await this.taskHistoryRepo.find({
+                where: {
+                    taskId: id
+                }
+            });
+
+            response.taskList = result.map((item) => {
+                return {
+                    id: item.taskId,
+                    categoryId: item.categoryId,
+                    createdAt: item.creationDate,
+                    categoryName: categoryResult.find(
+                        (cItem) => cItem.id == item.categoryId
+                    ).name
                 };
             });
             response.isSuccess = true;
