@@ -36,6 +36,24 @@ export class TaskController {
         return res;
     }
 
+    @UseGuards(AuthGuard)
+    @Post('/update')
+    async update(
+        @Request() req,
+        @Body() command: TaskCommand
+    ): Promise<CommonResponse> {
+        const correlationId: string = randomUUID();
+        this.logger.log(`${correlationId} update task started.`);
+
+        const res = await this.taskService.update(
+            command,
+            req.user?.email,
+            correlationId
+        );
+        this.logger.log(`${correlationId} update task ended.`);
+        return res;
+    }
+
     // @UseGuards(AuthGuard)
     // @Get('/get')
     // async get(@Request() req): Promise<CategoryResponse> {
