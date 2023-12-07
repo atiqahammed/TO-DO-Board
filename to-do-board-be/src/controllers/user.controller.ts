@@ -1,4 +1,12 @@
-import { Controller, Logger, Post, Body, UseGuards, Get, Request } from '@nestjs/common';
+import {
+    Controller,
+    Logger,
+    Post,
+    Body,
+    UseGuards,
+    Get,
+    Request
+} from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { SignupCommand } from '../commands/signup.command';
 import { UserService } from '../services/user.service';

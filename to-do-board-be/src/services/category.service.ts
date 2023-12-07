@@ -18,7 +18,6 @@ export class CategoryService {
         private categoryRepo: Repository<DBCategory>
     ) {}
 
-
     async create(
         command: CategoryCommand,
         email: string,
@@ -65,10 +64,7 @@ export class CategoryService {
         }
     }
 
-    async get(
-        email: string,
-        correlationId: string
-    ): Promise<CategoryResponse> {
+    async get(email: string, correlationId: string): Promise<CategoryResponse> {
         this.logger.log(
             `${correlationId} get category initiated. email: ${email}`
         );
@@ -91,17 +87,18 @@ export class CategoryService {
             }
 
             this.logger.log(`${correlationId} getting category.`);
-            
-            
-            const result = await this.categoryRepo.find({where: {
-                userId: existingUser.id
-            }});
 
-            response.categoryList = result.map(item => {
+            const result = await this.categoryRepo.find({
+                where: {
+                    userId: existingUser.id
+                }
+            });
+
+            response.categoryList = result.map((item) => {
                 return {
                     name: item.name,
                     id: item.id
-                }
+                };
             });
             response.isSuccess = true;
             response.message = 'SUCCESS';

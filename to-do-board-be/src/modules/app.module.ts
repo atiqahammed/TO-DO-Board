@@ -8,6 +8,7 @@ import { UserModule } from './user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from '../utils/secret';
 import { CategoryModule } from './category.module';
+import { TaskModule } from './task.module';
 
 @Module({
     imports: [
@@ -21,6 +22,7 @@ import { CategoryModule } from './category.module';
         }),
         UserModule,
         CategoryModule,
+        TaskModule,
         TypeOrmModule.forRootAsync(typeOrmAsyncConfig)
     ],
     controllers: [AppController],
