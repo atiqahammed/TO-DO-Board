@@ -1,7 +1,21 @@
 import { useAuth } from '../provider/AuthProvider'
+import image from '../assets/images.png'
+import { useEffect, useState } from 'react'
+import { parseJwt } from '../utils/parseJWT'
 
 function Nav() {
-    const { logout } = useAuth()
+    const { logout, token } = useAuth()
+    const [userInfo, setUserInfo] = useState({ firstName: '', lastName: '' })
+
+    useEffect(() => {
+        if (token) {
+            const tokenInfo = parseJwt(token)
+            setUserInfo({
+                firstName: tokenInfo?.firstName,
+                lastName: tokenInfo?.lastName,
+            })
+        }
+    }, [])
 
     return (
         <nav className="">
@@ -10,13 +24,9 @@ function Nav() {
                     href="#"
                     className="flex items-center space-x-3 rtl:space-x-reverse"
                 >
-                    <img
-                        src="https://flowbite.com/docs/images/logo.svg"
-                        className="h-8"
-                        alt="To Do Logo"
-                    />
+                    <img src={image} className="h-8" alt="To Do Logo" />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">
-                        To Do Board
+                        Task Board
                     </span>
                 </a>
                 <button
@@ -49,7 +59,7 @@ function Nav() {
                 >
                     <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
                         <li>
-                            <a href="#">Fast Last</a>
+                            <a href="#">{`${userInfo.firstName} ${userInfo.lastName}`}</a>
                         </li>
                         <li>
                             <a

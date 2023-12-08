@@ -1,6 +1,6 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Login from './components/Login'
+import Login from './components/Authentication/Login'
 import ToDoMaster from './components/ToDo/ToDoMaster'
 import NoPage from './components/NoPage'
 import AuthProvider from './provider/AuthProvider'

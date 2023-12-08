@@ -1,23 +1,23 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import LoginForm from './Authentication/LoginForm';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../provider/AuthProvider';
-import API from '../utils/APIInstance';
-import { useToasts } from 'react-toast-notifications';
-import SignupForm from './Authentication/SignupForm';
+import React, { useEffect, useState } from 'react'
+import LoginForm from './LoginForm'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../provider/AuthProvider'
+import API from '../../utils/APIInstance'
+import { useToasts } from 'react-toast-notifications'
+import SignupForm from './SignupForm'
 
 function Login() {
-    const navigate = useNavigate();
-    const { addToast } = useToasts();
+    const navigate = useNavigate()
+    const { addToast } = useToasts()
 
-    const { setToken, token, setRefreshToken } = useAuth();
+    const { setToken, token, setRefreshToken } = useAuth()
 
     const loginSubmit = (data: any) => {
-        API.post(`/user/login`, data).then(({data}: any) => {
+        API.post(`/user/login`, data).then(({ data }: any) => {
             if (data.isSuccess) {
-                setToken(data.accessToken);
-                setRefreshToken(data.refreshToken);
-                navigate('/to-do', { replace: true });
+                setToken(data.accessToken)
+                setRefreshToken(data.refreshToken)
+                navigate('/to-do', { replace: true })
             } else {
                 addToast(
                     'Invalid Credential. Please try with valid email and password.',
@@ -28,19 +28,17 @@ function Login() {
     }
 
     const signupSubmit = (data: any) => {
-        API.post(`/user/signup`, data).then(({data}: any) => {
+        API.post(`/user/signup`, data).then(({ data }: any) => {
             if (data.isSuccess) {
-                setIsLogin(true);
-                addToast(
-                    'Account created successfully.',
-                    { appearance: 'success' }
-                )
+                setIsLogin(true)
+                addToast('Account created successfully.', {
+                    appearance: 'success',
+                })
             } else {
-                const message = data.errorMessage ? data.errorMessage : 'Something went wrong please try again later.';
-                addToast(
-                    message,
-                    { appearance: 'error' }
-                )
+                const message = data.errorMessage
+                    ? data.errorMessage
+                    : 'Something went wrong please try again later.'
+                addToast(message, { appearance: 'error' })
             }
         })
     }
@@ -49,7 +47,7 @@ function Login() {
         if (token) {
             navigate('/to-do', { replace: true })
         }
-    }, [token]);
+    }, [token])
 
     const [isLogin, setIsLogin] = useState(true)
 
@@ -71,9 +69,15 @@ function Login() {
                                     : `Create a new account`}
                             </h1>
                             {isLogin ? (
-                                <LoginForm loginSubmit={loginSubmit} setIsLogin={setIsLogin} />
+                                <LoginForm
+                                    loginSubmit={loginSubmit}
+                                    setIsLogin={setIsLogin}
+                                />
                             ) : (
-                                <SignupForm signupSubmit={signupSubmit} setIsLogin={setIsLogin} />
+                                <SignupForm
+                                    signupSubmit={signupSubmit}
+                                    setIsLogin={setIsLogin}
+                                />
                             )}
                         </div>
                     </div>
