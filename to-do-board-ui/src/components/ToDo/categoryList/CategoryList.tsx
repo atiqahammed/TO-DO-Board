@@ -71,17 +71,17 @@ function CategoryList(props: {
             onDragOver={allowDrop}
             className="rounded-md min-w-[25%] max-w-md bg-slate-50 p-2 m-1 pb-20"
         >
-
-<div className="grid grid-cols-2 gap-4">
-    <div className="text-2xl font-bold mb-5">
-                {resizeText(category.name ?? '', maxNameSize)}
+            <div className="grid grid-cols-2 gap-4">
+                <div className="text-2xl font-bold mb-5">
+                    {resizeText(category.name ?? '', maxNameSize)}
+                </div>
+                <div className="flex md:flex md:flex-grow flex-row justify-end space-x-1">
+                    <NewTaskModal
+                        loadTask={loadTask}
+                        category={category}
+                    ></NewTaskModal>
+                </div>
             </div>
-            <div className='flex md:flex md:flex-grow flex-row justify-end space-x-1'><NewTaskModal></NewTaskModal></div>
-</div>
-           
-            
-
-            
 
             {taskList.map((task, index) => {
                 if (task.categoryId == category.id) {
@@ -92,9 +92,7 @@ function CategoryList(props: {
                             draggable={true}
                             onDragStart={drag}
                         >
-                            <Item
-                                task={task}
-                            ></Item>
+                            <Item task={task}></Item>
                         </div>
                     )
                 } else {

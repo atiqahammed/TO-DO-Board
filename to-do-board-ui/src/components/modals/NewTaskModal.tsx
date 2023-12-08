@@ -2,17 +2,27 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import API from '../../utils/APIInstance'
 import { useToasts } from 'react-toast-notifications'
+import { ITask } from '../../interfaces/iTastItem'
 
 type Inputs = {
-    name: string
+    title: string
+    description: string
+    expiryDate: string
 }
 
-export default function NewTaskModal({ loadTask }: any) {
+export default function NewTaskModal({ loadTask, category }: any) {
     const { addToast } = useToasts()
     const [loading, setLoading] = useState(false)
     const saveCategory = (data: any) => {
+        console.log(data)
+        const requestBody: ITask = {
+            categoryId: category.id,
+            title: data.title,
+            expiryDate: data.expiryDate,
+            description: data.description,
+        }
         setLoading(true)
-        API.post(`/task/create`, data)
+        API.post(`/task/create`, requestBody)
             .then(({ data }) => {
                 setLoading(false)
                 if (data.isSuccess) {
@@ -44,6 +54,7 @@ export default function NewTaskModal({ loadTask }: any) {
             <button
                 className="bg-blue-500 mb-6 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
                 type="button"
+                title="Add new task"
                 onClick={() => setShowModal(true)}
             >
                 +
@@ -58,7 +69,7 @@ export default function NewTaskModal({ loadTask }: any) {
                                     {/*header*/}
                                     <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                                         <h3 className="text-1xl font-semibold">
-                                            Add new Category
+                                            Add Task
                                         </h3>
                                     </div>
                                     {/*body*/}
@@ -68,10 +79,10 @@ export default function NewTaskModal({ loadTask }: any) {
                                                 htmlFor="default-input"
                                                 className="block w-[600px] mb-2 text-sm font-medium"
                                             >
-                                                Category Name
+                                                Title
                                             </label>
                                             <input
-                                                {...register('name', {
+                                                {...register('title', {
                                                     required: true,
                                                     maxLength: 100,
                                                 })}
@@ -79,15 +90,79 @@ export default function NewTaskModal({ loadTask }: any) {
                                                 id="default-input"
                                                 className="border w-[600px] border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             />
-                                            {errors.name &&
-                                                errors.name.type ===
+                                            {errors.title &&
+                                                errors.title.type ===
                                                     'required' && (
                                                     <span className="text-red-500">
                                                         This is required
                                                     </span>
                                                 )}
-                                            {errors.name &&
-                                                errors.name.type ===
+                                            {errors.title &&
+                                                errors.title.type ===
+                                                    'maxLength' && (
+                                                    <span className="text-red-500">
+                                                        Max length exceeded
+                                                    </span>
+                                                )}
+                                        </div>
+
+                                        <div className="mb-6">
+                                            <label
+                                                htmlFor="default-input"
+                                                className="block w-[600px] mb-2 text-sm font-medium"
+                                            >
+                                                Description
+                                            </label>
+                                            <textarea
+                                                {...register('description', {
+                                                    required: true,
+                                                    maxLength: 500,
+                                                })}
+                                                rows={4}
+                                                id="default-input"
+                                                className="border w-[600px] border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            />
+                                            {errors.description &&
+                                                errors.description.type ===
+                                                    'required' && (
+                                                    <span className="text-red-500">
+                                                        This is required
+                                                    </span>
+                                                )}
+                                            {errors.description &&
+                                                errors.description.type ===
+                                                    'maxLength' && (
+                                                    <span className="text-red-500">
+                                                        Max length exceeded
+                                                    </span>
+                                                )}
+                                        </div>
+
+                                        <div className="mb-6">
+                                            <label
+                                                htmlFor="default-input"
+                                                className="block w-[600px] mb-2 text-sm font-medium"
+                                            >
+                                                Expiry Date
+                                            </label>
+                                            <input
+                                                {...register('expiryDate', {
+                                                    required: true,
+                                                    maxLength: 500,
+                                                })}
+                                                type="date"
+                                                id="default-input"
+                                                className="border w-[600px] border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            />
+                                            {errors.description &&
+                                                errors.description.type ===
+                                                    'required' && (
+                                                    <span className="text-red-500">
+                                                        This is required
+                                                    </span>
+                                                )}
+                                            {errors.description &&
+                                                errors.description.type ===
                                                     'maxLength' && (
                                                     <span className="text-red-500">
                                                         Max length exceeded
