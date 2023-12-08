@@ -1,16 +1,29 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import LoginForm from './Authentication/LoginForm'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../provider/AuthProvider'
+import React, { Fragment, useEffect, useState } from 'react';
+import LoginForm from './Authentication/LoginForm';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../provider/AuthProvider';
+import API from '../utils/APIInstance';
+import { useToasts } from 'react-toast-notifications';
 
 function Login() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const { addToast } = useToasts();
 
-    const { setToken, token } = useAuth()
+    const { setToken, token, setRefreshToken } = useAuth();
 
     const loginSubmit = (data: any) => {
-        setToken('dfasfsafsfs Test Token')
-        navigate('/to-do', { replace: true })
+        API.post(`/user/login`, data).then(({data}: any) => {
+            if (data.isSuccess) {
+                setToken(data.accessToken);
+                setRefreshToken(data.refreshToken);
+                navigate('/to-do', { replace: true });
+            } else {
+                addToast(
+                    'Invalid Credential. Please try with valid email and password.',
+                    { appearance: 'error' }
+                )
+            }
+        })
     }
 
     useEffect(() => {
