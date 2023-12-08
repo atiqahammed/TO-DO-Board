@@ -7,7 +7,10 @@ const API = axios.create({
 // Add global request interceptor
 API.interceptors.request.use(
     (config) => {
-        // Modify request config here, e.g., add headers
+        const token = localStorage.getItem('token')
+        if (token) {
+            config.headers['Authorization'] = 'Bearer ' + token
+        }
         return config
     },
     (error) => {

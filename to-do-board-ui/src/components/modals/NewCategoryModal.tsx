@@ -1,13 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import API from '../../utils/APIInstance'
+import { useToasts } from 'react-toast-notifications'
 
 type Inputs = {
     name: string
 }
 
 export default function NewCategoryModal() {
+    const { addToast } = useToasts()
+    const [loading, setLoading] = useState(false)
     const saveCategory = (data: any) => {
-        console.log(data)
+        setLoading(true)
+        API.post(`/category/create`, data)
+            .then(({ data }) => {
+                setLoading(false)
+                if (data.isSuccess) {
+                    setShowModal(false)
+                    addToast(`Category Added`, { appearance: 'success' })
+                } else {
+                    addToast(`Something went wrong`, { appearance: 'error' })
+                }
+                // reload category
+            })
+            .catch((error) => {
+                console.log(error)
+                setLoading(false)
+                addToast(`Something went wrong`, { appearance: 'error' })
+            })
     }
 
     const {
@@ -84,10 +104,12 @@ export default function NewCategoryModal() {
                                             Close
                                         </button>
                                         <button
-                                            className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                            className={`bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ${
+                                                loading && `disabled`
+                                            }`}
                                             type="submit"
                                         >
-                                            Save
+                                            {loading ? '...Processing' : 'Save'}
                                         </button>
                                     </div>
                                 </div>
