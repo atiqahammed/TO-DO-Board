@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../provider/AuthProvider';
 import API from '../utils/APIInstance';
 import { useToasts } from 'react-toast-notifications';
+import SignupForm from './Authentication/SignupForm';
 
 function Login() {
     const navigate = useNavigate();
@@ -26,11 +27,29 @@ function Login() {
         })
     }
 
+    const signupSubmit = (data: any) => {
+        API.post(`/user/signup`, data).then(({data}: any) => {
+            if (data.isSuccess) {
+                setIsLogin(true);
+                addToast(
+                    'Account created successfully.',
+                    { appearance: 'success' }
+                )
+            } else {
+                const message = data.errorMessage ? data.errorMessage : 'Something went wrong please try again later.';
+                addToast(
+                    message,
+                    { appearance: 'error' }
+                )
+            }
+        })
+    }
+
     useEffect(() => {
         if (token) {
             navigate('/to-do', { replace: true })
         }
-    }, [token])
+    }, [token]);
 
     const [isLogin, setIsLogin] = useState(true)
 
@@ -52,9 +71,9 @@ function Login() {
                                     : `Create a new account`}
                             </h1>
                             {isLogin ? (
-                                <LoginForm loginSubmit={loginSubmit} />
+                                <LoginForm loginSubmit={loginSubmit} setIsLogin={setIsLogin} />
                             ) : (
-                                <Fragment />
+                                <SignupForm signupSubmit={signupSubmit} setIsLogin={setIsLogin} />
                             )}
                         </div>
                     </div>
