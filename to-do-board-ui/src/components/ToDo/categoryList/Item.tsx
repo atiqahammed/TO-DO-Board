@@ -1,8 +1,8 @@
 import { ITask } from '../../../interfaces/iTastItem'
 import { resizeText } from '../../../utils/resizeText'
 
-function Item(props: { task: ITask; categoryName: string }) {
-    const { task, categoryName } = props
+function Item(props: { task: ITask }) {
+    const { task } = props
 
     const maxNameSize = 20
     const maxDescriptionSize = 50
@@ -15,7 +15,6 @@ function Item(props: { task: ITask; categoryName: string }) {
             <p className="text-sm">
                 {resizeText(task.description ?? '', maxDescriptionSize)}
             </p>
-            <p className="text-sm">{categoryName}</p>
             <p className="text-sm">{task.expiryDate}</p>
         </div>
     )

@@ -1,10 +1,11 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment } from 'react'
 import { ICategory } from '../../../interfaces/iCategory'
 import { ITask } from '../../../interfaces/iTastItem'
 import { resizeText } from '../../../utils/resizeText'
 import Item from './Item'
 import API from '../../../utils/APIInstance'
 import { useToasts } from 'react-toast-notifications'
+import NewTaskModal from '../../modals/NewTaskModal'
 
 function CategoryList(props: {
     category: ICategory
@@ -70,9 +71,17 @@ function CategoryList(props: {
             onDragOver={allowDrop}
             className="rounded-md min-w-[25%] max-w-md bg-slate-50 p-2 m-1 pb-20"
         >
-            <h1 className="text-2xl font-bold mb-5">
+
+<div className="grid grid-cols-2 gap-4">
+    <div className="text-2xl font-bold mb-5">
                 {resizeText(category.name ?? '', maxNameSize)}
-            </h1>
+            </div>
+            <div className='flex md:flex md:flex-grow flex-row justify-end space-x-1'><NewTaskModal></NewTaskModal></div>
+</div>
+           
+            
+
+            
 
             {taskList.map((task, index) => {
                 if (task.categoryId == category.id) {
@@ -85,7 +94,6 @@ function CategoryList(props: {
                         >
                             <Item
                                 task={task}
-                                categoryName={category.name}
                             ></Item>
                         </div>
                     )

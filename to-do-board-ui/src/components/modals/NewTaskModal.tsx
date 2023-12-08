@@ -7,19 +7,19 @@ type Inputs = {
     name: string
 }
 
-export default function NewCategoryModal({ loadCategory }: any) {
+export default function NewTaskModal({ loadTask }: any) {
     const { addToast } = useToasts()
     const [loading, setLoading] = useState(false)
     const saveCategory = (data: any) => {
         setLoading(true)
-        API.post(`/category/create`, data)
+        API.post(`/task/create`, data)
             .then(({ data }) => {
                 setLoading(false)
                 if (data.isSuccess) {
                     setShowModal(false)
-                    addToast(`Category Added`, { appearance: 'success' })
+                    addToast(`Task Added`, { appearance: 'success' })
                     reset()
-                    loadCategory()
+                    loadTask()
                 } else {
                     addToast(`Something went wrong`, { appearance: 'error' })
                 }
@@ -41,9 +41,13 @@ export default function NewCategoryModal({ loadCategory }: any) {
 
     return (
         <>
-            <button onClick={() => setShowModal(true)} className="bg-blue-500 m-6 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-            + Add Category
-</button>
+            <button
+                className="bg-blue-500 mb-6 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                type="button"
+                onClick={() => setShowModal(true)}
+            >
+                +
+            </button>
             {showModal ? (
                 <>
                     <form onSubmit={handleSubmit(saveCategory)}>

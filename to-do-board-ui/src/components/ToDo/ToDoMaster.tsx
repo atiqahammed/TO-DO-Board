@@ -53,10 +53,17 @@ function ToDoMaster() {
     return (
         <Fragment>
             <Nav />
-            <div className="pl-20 pr-20">
-                <h1 className="text-3xl font-bold underline mb-4">Task List</h1>
+            <div className="pl-40 pr-40">
 
-                <NewCategoryModal loadCategory={loadCategory} />
+            <div className="grid grid-cols-2 gap-4">
+    <div className="text-2xl font-bold mb-5">
+    <h1 className="text-3xl font-bold underline mb-4">Task List</h1>
+            </div>
+            <div className='flex md:flex md:flex-grow flex-row justify-end space-x-1'><NewCategoryModal loadCategory={loadCategory} /></div>
+</div>
+                
+
+                
 
                 <div className="flex overflow-x-auto bg-grew-200">
                     {categoryList.map((item, index) => {
