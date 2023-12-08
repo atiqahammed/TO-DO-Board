@@ -1,11 +1,24 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import Nav from '../Nav'
 import { ICategory } from '../../interfaces/iCategory'
 import { ITask } from '../../interfaces/iTastItem'
 import CategoryList from './categoryList/CategoryList'
 import NewCategoryModal from '../modals/NewCategoryModal'
+import { useAuth } from '../../provider/AuthProvider'
+import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom';
 
 function ToDoMaster() {
+    const { token } = useAuth()
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!token) {
+            navigate('/', { replace: true })
+        }
+    }, [token])
+
     const categoryList: ICategory[] = [
         {
             id: 1,

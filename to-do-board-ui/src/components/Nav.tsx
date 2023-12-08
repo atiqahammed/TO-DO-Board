@@ -1,4 +1,8 @@
+import { useAuth } from '../provider/AuthProvider'
+
 function Nav() {
+    const { logout } = useAuth()
+
     return (
         <nav className="">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -48,7 +52,14 @@ function Nav() {
                             <a href="#">Fast Last</a>
                         </li>
                         <li>
-                            <a href="#">Logout</a>
+                            <a
+                                href="#"
+                                onClick={() => {
+                                    logout()
+                                }}
+                            >
+                                Logout
+                            </a>
                         </li>
                     </ul>
                 </div>
