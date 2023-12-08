@@ -1,7 +1,7 @@
 import { ICategory } from './iCategory'
 
 export interface ITask {
-    id?: number
+    id?: string
     name?: string
     description?: string
     category?: ICategory

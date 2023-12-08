@@ -9,7 +9,7 @@ function CategoryList(props: { category: ICategory }) {
     const maxNameSize = 20
 
     const task: ITask = {
-        id: category.id + 10,
+        id: category.id,
         name: 'name dfasdfasdf sdf asdfaaaaaaaa sdf asd fsad fas df asdf sadf asd f sdf',
         description:
             'dgdsfgsdfg sdfgsdfg sdfgsdfg sdfgsdfg sdfgsdfg sdfgsdf gsdfgsd fgsdfg sdfg sdfasd fasdfasdf sadf',

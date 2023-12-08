@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Nav from '../Nav'
 import { ICategory } from '../../interfaces/iCategory'
 import { ITask } from '../../interfaces/iTastItem'
@@ -6,11 +6,12 @@ import CategoryList from './categoryList/CategoryList'
 import NewCategoryModal from '../modals/NewCategoryModal'
 import { useAuth } from '../../provider/AuthProvider'
 import { useNavigate } from 'react-router-dom'
+import API from '../../utils/APIInstance'
 // import { useNavigate } from 'react-router-dom';
 
 function ToDoMaster() {
     const { token } = useAuth()
-
+    const [categoryList, setCategoryList] = useState<ICategory[]>([])
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -19,31 +20,48 @@ function ToDoMaster() {
         }
     }, [token])
 
-    const categoryList: ICategory[] = [
-        {
-            id: 1,
-            name: 'To do',
-        },
-        {
-            id: 2,
-            name: 'In progress',
-        },
-        {
-            id: 3,
-            name: 'Done',
-        },
-        {
-            id: 4,
-            name: 'Archived',
-        },
-        {
-            id: 5,
-            name: 'Test',
-        },
-    ]
+    const loadCategory = () => {
+        API.get(`/category/get`)
+            .then(({ data }) => {
+                console.log(data)
+                if (data.isSuccess) {
+                    setCategoryList(data.categoryList)
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    useEffect(() => {
+        loadCategory()
+    }, [])
+
+    // const categoryList: ICategory[] = [
+    //     {
+    //         id: 1,
+    //         name: 'To do',
+    //     },
+    //     {
+    //         id: 2,
+    //         name: 'In progress',
+    //     },
+    //     {
+    //         id: 3,
+    //         name: 'Done',
+    //     },
+    //     {
+    //         id: 4,
+    //         name: 'Archived',
+    //     },
+    //     {
+    //         id: 5,
+    //         name: 'Test',
+    //     },
+    // ]
 
     const task: ITask = {
-        id: 2,
+        id: 'ddd',
         name: 'name dfasdfasdf sdf asdfaaaaaaaa sdf asd fsad fas df asdf sadf asd f sdf',
         description:
             'dgdsfgsdfg sdfgsdfg sdfgsdfg sdfgsdfg sdfgsdfg sdfgsdf gsdfgsd fgsdfg sdfg sdfasd fasdfasdf sadf',
@@ -57,7 +75,7 @@ function ToDoMaster() {
             <div className="pl-20 pr-20">
                 <h1 className="text-3xl font-bold underline mb-4">Task List</h1>
 
-                <NewCategoryModal></NewCategoryModal>
+                <NewCategoryModal loadCategory={loadCategory} />
 
                 <div className="flex overflow-x-auto bg-grew-200">
                     {categoryList.map((item, index) => {

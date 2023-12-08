@@ -7,7 +7,7 @@ type Inputs = {
     name: string
 }
 
-export default function NewCategoryModal() {
+export default function NewCategoryModal({ loadCategory }: any) {
     const { addToast } = useToasts()
     const [loading, setLoading] = useState(false)
     const saveCategory = (data: any) => {
@@ -18,10 +18,11 @@ export default function NewCategoryModal() {
                 if (data.isSuccess) {
                     setShowModal(false)
                     addToast(`Category Added`, { appearance: 'success' })
+                    reset()
+                    loadCategory()
                 } else {
                     addToast(`Something went wrong`, { appearance: 'error' })
                 }
-                // reload category
             })
             .catch((error) => {
                 console.log(error)
@@ -33,6 +34,7 @@ export default function NewCategoryModal() {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm<Inputs>()
     const [showModal, setShowModal] = React.useState(false)
