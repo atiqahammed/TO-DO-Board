@@ -2,8 +2,8 @@ import { ICategory } from './iCategory'
 
 export interface ITask {
     id?: string
-    name?: string
+    title?: string
     description?: string
-    category?: ICategory
+    categoryId?: string
     expiryDate?: string
 }

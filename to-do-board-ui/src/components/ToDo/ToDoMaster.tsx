@@ -12,6 +12,7 @@ import API from '../../utils/APIInstance'
 function ToDoMaster() {
     const { token } = useAuth()
     const [categoryList, setCategoryList] = useState<ICategory[]>([])
+    const [taskList, setTaskList] = useState<ITask[]>([])
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -23,7 +24,6 @@ function ToDoMaster() {
     const loadCategory = () => {
         API.get(`/category/get`)
             .then(({ data }) => {
-                console.log(data)
                 if (data.isSuccess) {
                     setCategoryList(data.categoryList)
                 }
@@ -33,41 +33,22 @@ function ToDoMaster() {
             })
     }
 
+    const loadTask = () => {
+        API.get(`/task/get`)
+            .then(({ data }) => {
+                if (data.isSuccess) {
+                    setTaskList(data.taskList)
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
     useEffect(() => {
         loadCategory()
+        loadTask()
     }, [])
-
-    // const categoryList: ICategory[] = [
-    //     {
-    //         id: 1,
-    //         name: 'To do',
-    //     },
-    //     {
-    //         id: 2,
-    //         name: 'In progress',
-    //     },
-    //     {
-    //         id: 3,
-    //         name: 'Done',
-    //     },
-    //     {
-    //         id: 4,
-    //         name: 'Archived',
-    //     },
-    //     {
-    //         id: 5,
-    //         name: 'Test',
-    //     },
-    // ]
-
-    const task: ITask = {
-        id: 'ddd',
-        name: 'name dfasdfasdf sdf asdfaaaaaaaa sdf asd fsad fas df asdf sadf asd f sdf',
-        description:
-            'dgdsfgsdfg sdfgsdfg sdfgsdfg sdfgsdfg sdfgsdfg sdfgsdf gsdfgsd fgsdfg sdfg sdfasd fasdfasdf sadf',
-        expiryDate: '34/44/5677',
-        category: categoryList[0],
-    }
 
     return (
         <Fragment>
@@ -81,7 +62,11 @@ function ToDoMaster() {
                     {categoryList.map((item, index) => {
                         return (
                             <Fragment key={`category-${index}`}>
-                                <CategoryList category={item}></CategoryList>
+                                <CategoryList
+                                    category={item}
+                                    taskList={taskList}
+                                    loadTask={loadTask}
+                                ></CategoryList>
                             </Fragment>
                         )
                     })}
