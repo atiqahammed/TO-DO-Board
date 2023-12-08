@@ -60,14 +60,14 @@ export default function NewCategoryModal() {
                                             {errors.name &&
                                                 errors.name.type ===
                                                     'required' && (
-                                                    <span className='text-red-500'>
+                                                    <span className="text-red-500">
                                                         This is required
                                                     </span>
                                                 )}
                                             {errors.name &&
                                                 errors.name.type ===
                                                     'maxLength' && (
-                                                    <span className='text-red-500'>
+                                                    <span className="text-red-500">
                                                         Max length exceeded
                                                     </span>
                                                 )}
