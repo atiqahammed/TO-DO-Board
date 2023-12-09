@@ -3,7 +3,7 @@ import { IHistory } from '../../interfaces/iHistory'
 import API from '../../utils/APIInstance'
 import { formatDate } from '../../utils/formatDate'
 
-export default function HistoryView({ taskId }: any) {
+export default function TaskHistory({ taskId }: any) {
     const [historyList, setHistoryList] = useState<IHistory[]>([])
 
     useEffect(() => {

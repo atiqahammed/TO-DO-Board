@@ -1,18 +1,31 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { ITask } from '../../interfaces/iTastItem'
 import { resizeText } from '../../utils/resizeText'
 import ViewTaskModal from '../modals/ViewTaskModal'
-import { IHistory } from '../../interfaces/iHistory'
-import API from '../../utils/APIInstance'
 import { formatDate } from '../../utils/formatDate'
 
-function Item(props: { task: ITask; loadTask: any }) {
+function Task(props: { task: ITask; loadTask: any }) {
     const { task, loadTask } = props
 
     const maxNameSize = 20
     const maxDescriptionSize = 50
 
     const [showModal, setShowModal] = useState(false)
+
+    const getDateColor = () => {
+        const today: any = new Date()
+        const expiryDate: any = new Date(task.expiryDate ? task.expiryDate : '')
+        if (today > expiryDate) {
+            return 'text-[#e22040]'
+        }
+        const diffTime = Math.abs(today - expiryDate)
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+        if (diffDays <= 2) {
+            return 'text-[#e3a720]'
+        }
+
+        return 'text-[#20b1e3]'
+    }
 
     return (
         <Fragment>
@@ -51,13 +64,16 @@ function Item(props: { task: ITask; loadTask: any }) {
                     </div>
                 </div>
 
-                <p className="text-sm">
+                <p className="text-sm pb-3 pb-1">
                     {resizeText(task.description ?? '', maxDescriptionSize)}
                 </p>
-                <p className="text-sm">{formatDate(task.expiryDate)}</p>
+
+                <p className={`text-sm ${getDateColor()}`}>
+                    {formatDate(task.expiryDate)}
+                </p>
             </div>
         </Fragment>
     )
 }
 
-export default Item
+export default Task

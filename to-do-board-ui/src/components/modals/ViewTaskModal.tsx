@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import API from '../../utils/APIInstance'
 import { useToasts } from 'react-toast-notifications'
 import { ITask } from '../../interfaces/iTastItem'
-import HistoryView from '../ToDo/HistoryView'
+import TaskHistory from '../ToDo/TaskHistory'
 
 type Inputs = {
     title: string
@@ -176,7 +176,7 @@ export default function ViewTaskModal({
                                                 )}
                                         </div>
                                     </div>
-                                    <HistoryView taskId={task.id} />
+                                    <TaskHistory taskId={task.id} />
 
                                     <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                                         <button
