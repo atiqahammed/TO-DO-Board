@@ -129,7 +129,7 @@ then the application will be accessable in http://localhost:3000
     ![application](./assets/Screenshot%202023-12-09%20231050.png)
 2. Click on the `Sign up` button to create a new user
     ![application](./assets/Screenshot%202023-12-09%20231617.png)
-3. Click on the `Login` button and and provide email and password
+3. Click on the `Sign in` button and and provide email and password
     ![application](./assets/Screenshot%202023-12-09%20231050.png)
 4. After login it the task board will be appeared
     ![application](./assets/Screenshot%202023-12-09%20232120.png)
