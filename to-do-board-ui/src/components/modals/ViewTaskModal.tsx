@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import API from '../../utils/APIInstance'
 import { useToasts } from 'react-toast-notifications'
 import { ITask } from '../../interfaces/iTastItem'
+import HistoryView from '../ToDo/HistoryView'
 
 type Inputs = {
     title: string
@@ -10,23 +11,29 @@ type Inputs = {
     expiryDate: string
 }
 
-export default function NewTaskModal({ loadTask, category }: any) {
+export default function ViewTaskModal({
+    loadTask,
+    task,
+    showModal,
+    setShowModal,
+}: any) {
     const { addToast } = useToasts()
     const [loading, setLoading] = useState(false)
     const saveTask = (data: any) => {
         const requestBody: ITask = {
-            categoryId: category.id,
+            id: task.id,
+            categoryId: task.categoryId,
             title: data.title,
             expiryDate: data.expiryDate,
             description: data.description,
         }
         setLoading(true)
-        API.post(`/task/create`, requestBody)
+        API.post(`/task/update`, requestBody)
             .then(({ data }) => {
                 setLoading(false)
                 if (data.isSuccess) {
                     setShowModal(false)
-                    addToast(`Task Added`, { appearance: 'success' })
+                    addToast(`Task Updated`, { appearance: 'success' })
                     reset()
                     loadTask()
                 } else {
@@ -40,24 +47,24 @@ export default function NewTaskModal({ loadTask, category }: any) {
             })
     }
 
+    var expiryDate = new Date(task.expiryDate)
+    var expiryDateISOString = expiryDate.toISOString().substring(0, 10)
+
     const {
         register,
         handleSubmit,
         reset,
         formState: { errors },
-    } = useForm<Inputs>()
-    const [showModal, setShowModal] = React.useState(false)
+    } = useForm<Inputs>({
+        values: {
+            title: task?.title ? task?.title : '',
+            description: task?.description ? task?.description : '',
+            expiryDate: expiryDateISOString,
+        },
+    })
 
     return (
         <>
-            <button
-                className="bg-blue-500 mb-6 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-                type="button"
-                title="Add new task"
-                onClick={() => setShowModal(true)}
-            >
-                +
-            </button>
             {showModal ? (
                 <>
                     <form onSubmit={handleSubmit(saveTask)}>
@@ -169,8 +176,7 @@ export default function NewTaskModal({ loadTask, category }: any) {
                                                 )}
                                         </div>
                                     </div>
-                                    {/*footer*/}
-                                    <div></div>
+                                    <HistoryView taskId={task.id} />
 
                                     <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                                         <button

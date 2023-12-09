@@ -144,14 +144,15 @@ export class TaskService {
 
             const previousCategoryId = result.categoryId;
 
+
+            console.log(command)
             result.title = command.title;
             result.description = command.description;
-            result.expiryDate = command.expiryDate;
+            result.expiryDate = new Date(command.expiryDate).toUTCString();
             result.categoryId = command.categoryId;
             result.lastUpdateDate = new Date().toISOString();
-            this.logger.warn(`${correlationId} task updating.`);
+            this.logger.log(`${correlationId} task updating.`);
             await this.taskRepo.save(result);
-
             if (previousCategoryId != command.categoryId) {
                 let newHistoryItem = new DBTaskHistory();
                 newHistoryItem.categoryId = previousCategoryId;
@@ -268,6 +269,9 @@ export class TaskService {
             const result = await this.taskHistoryRepo.find({
                 where: {
                     taskId: id
+                },
+                order: {
+                    creationDate: 'DESC'
                 }
             });
 

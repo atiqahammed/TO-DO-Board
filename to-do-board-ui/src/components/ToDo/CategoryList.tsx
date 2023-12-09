@@ -1,11 +1,11 @@
 import { Fragment } from 'react'
-import { ICategory } from '../../../interfaces/iCategory'
-import { ITask } from '../../../interfaces/iTastItem'
-import { resizeText } from '../../../utils/resizeText'
+import { ICategory } from '../../interfaces/iCategory'
+import { ITask } from '../../interfaces/iTastItem'
+import { resizeText } from '../../utils/resizeText'
 import Item from './Item'
-import API from '../../../utils/APIInstance'
+import API from '../../utils/APIInstance'
 import { useToasts } from 'react-toast-notifications'
-import NewTaskModal from '../../modals/NewTaskModal'
+import NewTaskModal from '../modals/NewTaskModal'
 
 function CategoryList(props: {
     category: ICategory
@@ -92,7 +92,7 @@ function CategoryList(props: {
                             draggable={true}
                             onDragStart={drag}
                         >
-                            <Item task={task}></Item>
+                            <Item loadTask={loadTask} task={task}></Item>
                         </div>
                     )
                 } else {
