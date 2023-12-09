@@ -145,4 +145,15 @@ then the application will be accessable in http://localhost:3000
     ![application](./assets/Screenshot%202023-12-09%20233331.png)
 11. On saving the task it will get appeared under the category
     ![application](./assets/Screenshot%202023-12-09%20233345.png)
+12. Task Expiration date color will be different for several cases. 
+    - It will be blue if the task has more than 2 days to get expired
+    - It will be yellow if the task has less than 2 days to get expired
+    - It will be red if the task expiration already get crossed
+    ![application](./assets/Screenshot%202023-12-09%20233852.png)
+13. The tasks are drag and drop able between the categories for updating categories
+14. To view the application details click on the `pencil` icon on the task item. It will open a pop up with task details. The task information is editable in the task view popup. On the bottom of the popup there will be the category change history. Click on the save button to `Save` the task history. If the `Cancel` button is being clicked here, the task popup will get closed. But the task updated information will be draft until the user logout or reload the page.
+    ![application](./assets/Screenshot%202023-12-09%20234603.png)
+15. Click on the `Logout` button to get logout from the board.
+    ![application](./assets/Screenshot%202023-12-09%20234907.png) ![application](./assets/Screenshot%202023-12-09%20234931.png)
+
 
