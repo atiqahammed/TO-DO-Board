@@ -139,3 +139,10 @@ then the application will be accessable in http://localhost:3000
     ![application](./assets/Screenshot%202023-12-09%20232414.png)
 8. After saving the category information the newly created category will get appeared
     ![application](./assets/Screenshot%202023-12-09%20232425.png)
+9. Click on the `+` icon in the category section to create new task
+    ![application](./assets/Screenshot%202023-12-09%20232425%20-%202.png)
+10. On clicking on the `+` icon a new pop up will be opened to provide task information. Provide the task information and click on the save button.
+    ![application](./assets/Screenshot%202023-12-09%20233331.png)
+11. On saving the task it will get appeared under the category
+    ![application](./assets/Screenshot%202023-12-09%20233345.png)
+
