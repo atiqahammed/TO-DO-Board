@@ -68,7 +68,7 @@ This Repository contains 2 major projects.
 ### Steps
 1. Clone the repository from github
     ```
-    git clone https://github.com/atiqahammed/TO-DO-Board
+    git clone https://github.com/atiqahammed/TO-DO-Board.git
     ```
 2. Go to nest-api project to run the api first
     ```
@@ -103,3 +103,23 @@ This Repository contains 2 major projects.
     ```
 this will run the application. In this case in port 4000. We will be able to the swagger UI in <baseurl>/api for this case it will be like http://localhost:4500/api/
 ![swagger](./assets/Screenshot%202023-12-09%20230426.png)
+
+7. Go to the web_app directory to run the UI then
+    ```
+    cd ..
+    cd to-do-board-ui
+    ```
+8. Install dependencies
+    ```
+    yarn install
+    ```
+9. Set environment variables in .env if necessary with api base url
+    ```
+    REACT_APP_API_BASE_URL=http://localhost:4500
+    ```
+10. Run application
+    ```
+    yarn start
+    ```
+then the application will be accessable in http://localhost:3000
+![application](./assets/Screenshot%202023-12-09%20231050.png)
