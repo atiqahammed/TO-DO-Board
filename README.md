@@ -127,5 +127,15 @@ then the application will be accessable in http://localhost:3000
 ## Application Overview
 1. Go to the application browsing http://localhost:3000
     ![application](./assets/Screenshot%202023-12-09%20231050.png)
-2. Click on the `Sign Up` button to create a new user
+2. Click on the `Sign up` button to create a new user
     ![application](./assets/Screenshot%202023-12-09%20231617.png)
+3. Click on the `Login` button and and provide email and password
+    ![application](./assets/Screenshot%202023-12-09%20231050.png)
+4. After login it the task board will be appeared
+    ![application](./assets/Screenshot%202023-12-09%20232120.png)
+5. Initially the page will show message `Category is not available please create new category.` as there is no category created.
+6. To create a new category click on the `+ Add Category` button from the top right of the board.
+7. A pop up will be opened. Provide the category name and save category Information.
+    ![application](./assets/Screenshot%202023-12-09%20232414.png)
+8. After saving the category information the newly created category will get appeared
+    ![application](./assets/Screenshot%202023-12-09%20232425.png)
