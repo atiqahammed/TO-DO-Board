@@ -123,3 +123,9 @@ this will run the application. In this case in port 4000. We will be able to the
     ```
 then the application will be accessable in http://localhost:3000
 ![application](./assets/Screenshot%202023-12-09%20231050.png)
+
+## Application Overview
+1. Go to the application browsing http://localhost:3000
+    ![application](./assets/Screenshot%202023-12-09%20231050.png)
+2. Click on the `Sign Up` button to create a new user
+    ![application](./assets/Screenshot%202023-12-09%20231617.png)
