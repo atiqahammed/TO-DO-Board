@@ -7,7 +7,6 @@ import NewCategoryModal from '../modals/NewCategoryModal'
 import { useAuth } from '../../provider/AuthProvider'
 import { useNavigate } from 'react-router-dom'
 import API from '../../utils/APIInstance'
-// import { useNavigate } from 'react-router-dom';
 
 function ToDoMaster() {
     const { token } = useAuth()
@@ -45,6 +44,13 @@ function ToDoMaster() {
             })
     }
 
+    const draftTask = (task: ITask) => {
+        const index = taskList.findIndex((item) => item.id === task.id)
+        const draftList = [...taskList]
+        draftList[index] = task
+        setTaskList(draftList)
+    }
+
     useEffect(() => {
         loadCategory()
         loadTask()
@@ -73,6 +79,7 @@ function ToDoMaster() {
                                     category={item}
                                     taskList={taskList}
                                     loadTask={loadTask}
+                                    draftTask={draftTask}
                                 ></CategoryList>
                             </Fragment>
                         )

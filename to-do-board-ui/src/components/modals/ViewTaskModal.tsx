@@ -16,6 +16,7 @@ export default function ViewTaskModal({
     task,
     showModal,
     setShowModal,
+    draftTask,
 }: any) {
     const { addToast } = useToasts()
     const [loading, setLoading] = useState(false)
@@ -54,6 +55,7 @@ export default function ViewTaskModal({
         register,
         handleSubmit,
         reset,
+        getValues,
         formState: { errors },
     } = useForm<Inputs>({
         values: {
@@ -62,6 +64,19 @@ export default function ViewTaskModal({
             expiryDate: expiryDateISOString,
         },
     })
+
+    const closeModal = () => {
+        const formValues = getValues(['title', 'description', 'expiryDate'])
+        const draftTaskItem: ITask = {
+            id: task.id,
+            categoryId: task.categoryId,
+            title: formValues[0],
+            expiryDate: formValues[2],
+            description: formValues[1],
+        }
+        draftTask(draftTaskItem)
+        setShowModal(false)
+    }
 
     return (
         <>
@@ -182,7 +197,7 @@ export default function ViewTaskModal({
                                         <button
                                             className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="button"
-                                            onClick={() => setShowModal(false)}
+                                            onClick={() => closeModal()}
                                         >
                                             Close
                                         </button>

@@ -4,8 +4,8 @@ import { resizeText } from '../../utils/resizeText'
 import ViewTaskModal from '../modals/ViewTaskModal'
 import { formatDate } from '../../utils/formatDate'
 
-function Task(props: { task: ITask; loadTask: any }) {
-    const { task, loadTask } = props
+function Task(props: { task: ITask; loadTask: any; draftTask: any }) {
+    const { task, loadTask, draftTask } = props
 
     const maxNameSize = 20
     const maxDescriptionSize = 50
@@ -34,6 +34,7 @@ function Task(props: { task: ITask; loadTask: any }) {
                 showModal={showModal}
                 setShowModal={setShowModal}
                 loadTask={loadTask}
+                draftTask={draftTask}
             />
             <div className="border-2 border-zinc-800 rounded-md max-w-md bg-green-100 p-2 m-1">
                 <div className="grid grid-cols-2 gap-4">

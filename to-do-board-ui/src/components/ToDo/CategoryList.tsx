@@ -11,8 +11,9 @@ function CategoryList(props: {
     category: ICategory
     taskList: ITask[]
     loadTask: any
+    draftTask: any
 }) {
-    const { category, taskList, loadTask } = props
+    const { category, taskList, loadTask, draftTask } = props
     const { addToast } = useToasts()
 
     const maxNameSize = 20
@@ -92,7 +93,11 @@ function CategoryList(props: {
                             draggable={true}
                             onDragStart={drag}
                         >
-                            <Task loadTask={loadTask} task={task}></Task>
+                            <Task
+                                draftTask={draftTask}
+                                loadTask={loadTask}
+                                task={task}
+                            ></Task>
                         </div>
                     )
                 } else {

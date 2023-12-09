@@ -25,7 +25,7 @@ export default function TaskHistory({ taskId }: any) {
                     return (
                         <Fragment key={index}>
                             <div className="pl-6 bold">
-                                Moved to <b>{item.categoryName}</b> at{' '}
+                                Has been moved to <b>{item.categoryName}</b> at{' '}
                                 {formatDate(item.createdAt)}
                             </div>
                         </Fragment>
