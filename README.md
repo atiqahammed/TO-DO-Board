@@ -58,3 +58,48 @@ This Repository contains 2 major projects.
     ```
 2. to-do-board-be: the UI implementation with reactjs.
 
+## Instructions to run the code is development env
+### Requirements
+1. git
+2. nodejs v18.10.0 or later version
+3. yarn latest
+4. Postgres 15 or later version
+
+### Steps
+1. Clone the repository from github
+    ```
+    git clone https://github.com/atiqahammed/TO-DO-Board
+    ```
+2. Go to nest-api project to run the api first
+    ```
+    cd nest-api
+    ```
+3. Install dependencies
+    ```
+    yarn install
+    ```
+4. Set environment variables in .env if necessary
+    ```
+    PORT=4500
+
+    DATABASE_TYPE="postgres"
+    DATABASE_HOST="localhost"
+    DATABASE_PORT=5432
+    DATABASE_USER="postgres"
+    DATABASE_PASSWORD="postgres"
+    DATABASE_NAME="to-do-board"
+    DATABASE_SYNC="true"
+
+    ACCESS_TOKEN_EXPIRES_IN_SEC=3600
+    REFRESH_TOKEN_EXPIRES_IN_SEC=86400
+    ```
+5. Build the application
+    ```
+    yarn build
+    ```
+6. Run application
+    ```
+    yarn start:dev
+    ```
+this will run the application. In this case in port 4000. We will be able to the swagger UI in <baseurl>/api for this case it will be like http://localhost:4500/api/
+![swagger](./assets/Screenshot%202023-12-09%20230426.png)
