@@ -28,3 +28,14 @@ Please make sure to apply best practices when applying the authentication mechan
             i. Card 1: Has been moved to In Progress on Jan 25 2022 16:04
             ii. Card 2: Has been moved to Done on Feb 2 2022 11:04
             iii. Card 1: Has been moved to For Review on Feb 1 2022 10:04
+
+## Technology used
+1. Frontend 
+    - [React](https://react.dev/learn) with [typescript](https://www.typescriptlang.org/)
+    - [Tailwindcss](https://tailwindcss.com/) for styling
+2. Backend
+    - [Nestjs](https://nestjs.com/)
+    - [Typeorm](https://typeorm.io/) as database framework 
+3. Database
+    - [Postgres](https://www.postgresql.org/)
+
