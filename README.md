@@ -39,3 +39,22 @@ Please make sure to apply best practices when applying the authentication mechan
 3. Database
     - [Postgres](https://www.postgresql.org/)
 
+## Repository Description
+This Repository contains 2 major projects.
+
+1. to-do-board-be: the backend implementation of this project with nestjs. It contains endpoints:
+    ```
+        GET /health
+        POST /user/signup
+        POST /user/login
+        GET /user/profile
+        POST /user/refresh-token
+        POST /category/create
+        GET /category/get
+        POST /task/create
+        POST /task/update
+        GET /task/get
+        GET /task/get/history/{id}
+    ```
+2. to-do-board-be: the UI implementation with reactjs.
+
