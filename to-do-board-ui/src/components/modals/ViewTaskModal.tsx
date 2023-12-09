@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import API from '../../utils/APIInstance'
 import { useToasts } from 'react-toast-notifications'
 import { ITask } from '../../interfaces/iTastItem'
-import TaskHistory from '../ToDo/TaskHistory'
+import TaskHistory from '../TaskBoard/TaskHistory'
 
 type Inputs = {
     title: string

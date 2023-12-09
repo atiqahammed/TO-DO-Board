@@ -6,7 +6,6 @@ import {
     UseGuards,
     Request,
     Get,
-    Param
 } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { CommonResponse } from '../response-model/common.model';

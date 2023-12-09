@@ -8,7 +8,7 @@ import { useAuth } from '../../provider/AuthProvider'
 import { useNavigate } from 'react-router-dom'
 import API from '../../utils/APIInstance'
 
-function ToDoMaster() {
+function TaskBoard() {
     const { token } = useAuth()
     const [categoryList, setCategoryList] = useState<ICategory[]>([])
     const [taskList, setTaskList] = useState<ITask[]>([])
@@ -72,6 +72,14 @@ function ToDoMaster() {
                 </div>
 
                 <div className="flex overflow-x-auto bg-grew-200">
+                    {categoryList.length <= 0 && (
+                        <Fragment>
+                            <h4 className="text-1xl text-black-100 font-bold underline mb-4">
+                                Category is not available please create new
+                                category.
+                            </h4>
+                        </Fragment>
+                    )}
                     {categoryList.map((item, index) => {
                         return (
                             <Fragment key={`category-${index}`}>
@@ -90,4 +98,4 @@ function ToDoMaster() {
     )
 }
 
-export default ToDoMaster
+export default TaskBoard
